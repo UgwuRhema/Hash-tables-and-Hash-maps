@@ -117,12 +117,19 @@ map_put(struct hash_map_t *map, const char *key, const int value)
 static int
 map_get(struct hash_map_t **map, const char *key)
 {
-	if (!map || !key)
+	if (!map || !key){
+		fprintf(stderr, "Inputs are NULL\n");
 		return -1;
+	}
 	struct hash_map_t *temp_map = *map;
+	if (!temp_map){
+		fprintf(stderr, "Map is NULL?!\n");
+		return -1;
+	}
 	struct entry *f = lookup(key, temp_map);
 	if (f)
 		return f->value;
+	fprintf(stderr, "map_get: Not Found\n");
 	return -1;
 }
 
