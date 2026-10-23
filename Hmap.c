@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <stdbool.h>
 
 struct entry;
 struct hash_map_t;
@@ -10,6 +9,7 @@ static uint32_t hash(const char *, size_t);
 static struct hash_map_t *new_table(struct entry **, size_t);
 static struct entry * lookup(const char *, struct hash_map_t *);
 void map_put(struct hash_map_t *, const char *, const int);
+static int map_get(const struct hash_map_t *, const char *);/*we could use a void pointer for this but our current hashmaps value is an integer*/
 void destroy_map(struct hash_map_t *);
 
 /*HashMap entry*/
@@ -109,6 +109,18 @@ map_put(struct hash_map_t *map, const char *key, const int value)
 	ne->next = map->bucket[hashvalue];
 	map->bucket[hashvalue] = ne;
 	map->size++;
+}
+
+/*returns -1 on error, and the value on success*/
+static int
+map_get(const struct hash_map_t *map, const char *key)
+{
+	if (!map || !key)
+		return -1;
+	struct entry *f = lookup(key, map);
+	if (f)
+		return f->value;
+	return -1;
 }
 
 void
