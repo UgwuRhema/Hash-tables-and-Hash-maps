@@ -140,13 +140,15 @@ destroy_map(struct hash_map_t *map)
 	{
 		for (size_t i=0;i<map->num_buckets;++i)
 		{
-			if (map->bucket[i]){
-				if (map->bucket[i]->key)
-					free((void *)map->bucket[i]->key);
-				if (map->bucket[i]->next)
-					free((void *)map->bucket[i]->next);
+			struct entry *curr = map->bucket[i];
+			while (curr)
+			{
+				struct entry *next = curr->next;
+				if (curr->key)
+					free((void *)curr->key);
+				free(curr);
+				curr = next;
 			}
-			free((void *)map->bucket[i]);
 		}
 		free(map);
 	}
