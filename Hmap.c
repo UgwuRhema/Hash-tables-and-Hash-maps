@@ -35,8 +35,10 @@ main(int argc, char *argv[])
 {
 	struct hash_map_t *mymap = new_table(bucket, HASH_SIZE);	
 	map_put(mymap, "Frank", 13);
-	map_put(mymap, "Frank", 14);/*replaces the value at key "Frank" to 14(hopefully)*/
+	//map_put(mymap, "Frank", 14);/*replaces the value at key "Frank" to 14(hopefully)*/
 	map_put(mymap, "Rhema", 17);
+	int val = map_get(&mymap, "Rhena");/*this should be 17*/
+	printf("The value from the key \"Rhema\" is: %d\n", val);
 	destroy_map(mymap);
 	return 0;
 }
