@@ -41,6 +41,7 @@ def map_put(table, key, value):
 
 def map_get(table, key):
     if table is None:
+        print("Table is None")
         return -1 #negative 1 on errors
     found = lookup(table, key)
     if found is not None:
@@ -53,6 +54,7 @@ def map_get(table, key):
 tabnum = 2
 mymap = table(tabnum)
 map_put(mymap, "Rhema", 17)
+map_put(mymap, "Rhema", 18) #BOOM! this has to change the original and not make a new one
 map_put(mymap, "Frank", 14)
 #this works with no errors whatsoever, so
 #we need to verify it the HashMap ACTUALLY works
