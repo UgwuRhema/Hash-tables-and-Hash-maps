@@ -43,12 +43,25 @@ func lookup(table *HashTable, key string) *Entry {
 	return nil
 }
 
-//func map_put(table *HashTable, ){
-//	
-//}
+func map_put(table *HashTable, key string, value int){
+	if table == nil {
+		fmt.Println("Table is nil")
+	}
+	var hval uint = hash(key, table.tabnum)
+	var found *Entry = lookup(table, key)
+	if found != nil {
+		found.val = value
+	} else {
+		var new_entry *Entry = &Entry{key: key, val: value, next: nil}
+		new_entry.next = table.hashtab[hval]
+		table.hashtab[hval] = new_entry //insert at head
+		table.size++
+	}
+}
 
 func main(){
 	var num uint = 2
 	var mymap *HashTable = newTable(num)
+	map_put(mymap, "Rhema", 17)
 	fmt.Println(mymap)
 }
