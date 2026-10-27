@@ -7,15 +7,26 @@ class entry:
         self.next = None
 
 class table:
-    def __init__(self, bucket, num_buck):
+    def __init__(self, bucket, num_b):
         self.bucket = bucket
-        self.num_bucket = num_buck
+        self.num_bucket = num_b
         self.size = 0
 
 def hash(string, size):
     hashval = 0
     i = 0
-    while string[i] != '\0':
-        hashval = string[i] * 31 + hashval
-        i = i + 1
+    for ch in string:
+        hashval = ord(ch) * 31 + hashval
     return hashval % size
+
+def lookup(table, key):
+    idx = hash(key, table.num_bucket)
+    for entry in table.bucket[idx]:
+        if entry is not None and entry.key == key:
+            return entry
+    return None
+
+#main function:
+tabnum = 2
+hashtab = [None] * tabnum
+mymap = table(hashtab, tabnum) 
