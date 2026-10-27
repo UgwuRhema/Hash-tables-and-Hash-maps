@@ -59,9 +59,24 @@ func map_put(table *HashTable, key string, value int){
 	}
 }
 
+func map_get(table *HashTable, key string) int {
+	if table == nil {
+		return -1 //return negative one on errors
+	}
+	var found *Entry = lookup(table, key)
+	if found != nil {
+		return found.val
+	}
+	fmt.Println("Not Found")
+	return -1
+}
+
 func main(){
 	var num uint = 2
 	var mymap *HashTable = newTable(num)
 	map_put(mymap, "Rhema", 17)
+	map_put(mymap, "Frank", 14)
+	var val_for_rhema int = map_get(mymap, "Rhema")
 	fmt.Println(mymap)
+	fmt.Printf("The Value for key Rhema is %v", val_for_rhema)
 }
