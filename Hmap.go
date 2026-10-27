@@ -22,8 +22,13 @@ func newTable(tabnum uint) *HashTable {
 	}
 }
 
+func hash(key string) uint {
+	
+}
+
 func main(){
 	var num uint = 2
 	var mymap *HashTable = newTable(num)
+	var entry1 *Entry = &Entry{key: "Rhema", val: 17, next: nil}
 	fmt.Println(mymap)
 }
