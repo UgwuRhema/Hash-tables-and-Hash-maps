@@ -7,8 +7,8 @@ class entry:
         self.next = None
 
 class table:
-    def __init__(self, bucket, num_b):
-        self.bucket = bucket
+    def __init__(self, num_b):
+        self.bucket = [None] * num_b
         self.num_bucket = num_b
         self.size = 0
 
@@ -51,11 +51,11 @@ def map_get(table, key):
 
 #main function:
 tabnum = 2
-hashtab = [None] * tabnum
-mymap = table(hashtab, tabnum)
+mymap = table(tabnum)
 map_put(mymap, "Rhema", 17)
 map_put(mymap, "Frank", 14)
 #this works with no errors whatsoever, so
 #we need to verify it the HashMap ACTUALLY works
 #so we will now implement map_get
 value_for_rhema = map_get(mymap, "Rhema") #this should return 17, please
+print(f"The value the the entry with key 'Rhema' is {value_for_rhema}")
