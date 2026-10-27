@@ -37,6 +37,16 @@ def map_put(table, key, value):
         table.bucket[hashval] = new_entry #insert at head of list
         table.size = table.size + 1
 
+def map_get(table, key):
+    if table is None:
+        return -1 #negative 1 on errors
+    found = lookup(table, key)
+    if found is not None:
+        return found.val #return the value from the found entry
+    else:
+        print("Not Found")
+        return -1
+
 #main function:
 tabnum = 2
 hashtab = [[] for _ in range(tabnum)]
