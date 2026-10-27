@@ -21,9 +21,11 @@ def hash(string, size):
 
 def lookup(table, key):
     idx = hash(key, table.num_bucket)
-    for entry in table.bucket[idx]:
-        if entry is not None and entry.key == key:
+    entry = table.bucket[idx]
+    while entry is not None:
+        if entry.key == key:
             return entry
+        entry = entry.next
     return None
 
 def map_put(table, key, value):
@@ -49,10 +51,11 @@ def map_get(table, key):
 
 #main function:
 tabnum = 2
-hashtab = [[] for _ in range(tabnum)]
+hashtab = [None] * tabnum
 mymap = table(hashtab, tabnum)
 map_put(mymap, "Rhema", 17)
 map_put(mymap, "Frank", 14)
 #this works with no errors whatsoever, so
 #we need to verify it the HashMap ACTUALLY works
 #so we will now implement map_get
+value_for_rhema = map_get(mymap, "Rhema") #this should return 17, please
