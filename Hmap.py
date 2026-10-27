@@ -26,7 +26,20 @@ def lookup(table, key):
             return entry
     return None
 
+def map_put(table, key, value):
+    hashval = hash(key, table.num_bucket)
+    found = lookup(table, key)
+    if found is not None:
+        found.val = value
+    else:
+        new_entry = entry(key, value)
+        new_entry.next = table.bucket[hashval]
+        table.bucket[hashval] = new_entry #insert at head of list
+        table.size = table.size + 1
+
 #main function:
 tabnum = 2
-hashtab = [None] * tabnum
-mymap = table(hashtab, tabnum) 
+hashtab = [[] for _ in range(tabnum)]
+mymap = table(hashtab, tabnum)
+map_put(mymap, "Rhema", 17)
+map_put(mymap, "Frank", 14)
