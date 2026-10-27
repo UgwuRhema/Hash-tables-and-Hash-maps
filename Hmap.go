@@ -22,13 +22,33 @@ func newTable(tabnum uint) *HashTable {
 	}
 }
 
-func hash(key string) uint {
-	
+func hash(key string, size uint) uint {
+	var hashval uint = 0
+	for i := 0; i < len(key); i++{
+		hashval = uint(key[i]) * 31 + hashval
+	}
+	return hashval % size
 }
+
+func lookup(table *HashTable, key string) *Entry {
+	if table == nil {
+		return nil
+	}
+	var hval uint = hash(key, table.tabnum)
+	for ent := table.hashtab[hval]; ent != nil; ent = ent.next {
+		if ent.key == key {
+			return ent
+		}
+	}
+	return nil
+}
+
+//func map_put(table *HashTable, ){
+//	
+//}
 
 func main(){
 	var num uint = 2
 	var mymap *HashTable = newTable(num)
-	var entry1 *Entry = &Entry{key: "Rhema", val: 17, next: nil}
 	fmt.Println(mymap)
 }
