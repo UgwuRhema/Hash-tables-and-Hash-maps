@@ -43,3 +43,6 @@ hashtab = [[] for _ in range(tabnum)]
 mymap = table(hashtab, tabnum)
 map_put(mymap, "Rhema", 17)
 map_put(mymap, "Frank", 14)
+#this works with no errors whatsoever, so
+#we need to verify it the HashMap ACTUALLY works
+#so we will now implement map_get
